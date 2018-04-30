@@ -26,6 +26,10 @@ public class Login extends AppCompatActivity {
     Button loginButton;
     String user, pass;
 
+    public static final String PREFS_NAME = "MyPrefsFile";
+    private static final String PREF_USERNAME = "username";
+    private static final String PREF_PASSWORD = "password";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
