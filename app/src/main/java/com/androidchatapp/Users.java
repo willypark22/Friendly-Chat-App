@@ -1,7 +1,10 @@
 package com.androidchatapp;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,6 +33,7 @@ public class Users extends AppCompatActivity {
     ArrayList<String> al = new ArrayList<>();
     int totalUsers = 0;
     ProgressDialog pd;
+    boolean exit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,5 +105,10 @@ public class Users extends AppCompatActivity {
         }
 
         pd.dismiss();
+    }
+    @Override
+    public void onBackPressed() {
+
+
     }
 }
