@@ -24,39 +24,35 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity {
-    TextView register,loginT;
+    TextView register;
     EditText username, password;
     Button loginButton;
-    String user, pass;
+    String user, pass, restoredUser, restoredPass;
 
 
     public static final String PREFS_NAME = "MyPrefsFile";
     private static final String PREF_USERNAME = "username";
     private static final String PREF_PASSWORD = "password";
     private static boolean userExists = false;
+    private static boolean userSaved = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        final CheckBox checkBox = findViewById(R.id.checkBox);
-        register = (TextView)findViewById(R.id.register);
-        username = (EditText)findViewById(R.id.username);
-        password = (EditText)findViewById(R.id.password);
-        loginButton = (Button)findViewById(R.id.loginButton);
-        loginT = (TextView)findViewById(R.id.login);
-        //getUser();
-//        userExists = true;
-////        if(userExists){
-////            setContentView(R.layout.activity_splash);
-////            TextView showPass = findViewById(R.id.showPass);
-////            showPass.setText(password.toString());
-////        }
-////        else{
-////            setContentView(R.layout.activity_login);
-////        }
 
-        ;
+        if(userSaved){
+            getUser();
+            login();
+        }
+        else{
+            setContentView(R.layout.activity_login);
+        }
+
+        final CheckBox checkBox = findViewById(R.id.checkBox);
+        register = findViewById(R.id.register);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        loginButton = findViewById(R.id.loginButton);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +60,6 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(Login.this, Register.class));
             }
         });
-
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -85,59 +80,22 @@ public class Login extends AppCompatActivity {
                 }
                 else{
                     login();
-//                    String url = "https://chat-1d9a1.firebaseio.com/users.json";
-//                    final ProgressDialog pd = new ProgressDialog(Login.this);
-//                    pd.setMessage("Loading...");
-//                    pd.show();
-//
-//                    StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>(){
-//                        @Override
-//                        public void onResponse(String s) {
-//                            if(s.equals("null")){
-//                                Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
-//                            }
-//                            else{
-//                                try {
-//                                    JSONObject obj = new JSONObject(s);
-//
-//                                    if(!obj.has(user)){
-//                                        Toast.makeText(Login.this, "user not found", Toast.LENGTH_LONG).show();
-//                                    }
-//                                    else if(obj.getJSONObject(user).getString("password").equals(pass)){
-//                                        UserDetails.username = user;
-//                                        UserDetails.password = pass;
-//                                        startActivity(new Intent(Login.this, Users.class));
-//                                    }
-//                                    else {
-//                                        Toast.makeText(Login.this, "incorrect password", Toast.LENGTH_LONG).show();
-//                                    }
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//
-//                            pd.dismiss();
-//                        }
-//                    },new Response.ErrorListener(){
-//                        @Override
-//                        public void onErrorResponse(VolleyError volleyError) {
-//                            System.out.println("" + volleyError);
-//                            pd.dismiss();
-//                        }
-//                    });
-//
-//                    RequestQueue rQueue = Volley.newRequestQueue(Login.this);
-//                    rQueue.add(request);
                 }
-
             }
         });
-//
     }
-//    public void onStart(){
-//        super.onStart();
-//        getUser();
-//    }
+    @Override
+    public void onStart(){
+        super.onStart();
+
+        getUser();
+        if(userExists){
+            user = restoredUser;
+            pass = restoredPass;
+            login();
+        }
+    }
+
     public void login(){
         String url = "https://chat-1d9a1.firebaseio.com/users.json";
         final ProgressDialog pd = new ProgressDialog(Login.this);
@@ -185,14 +143,12 @@ public class Login extends AppCompatActivity {
     }
     public void getUser(){
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        String restoredUser = prefs.getString(PREF_USERNAME,null);
-        String restoredPass = prefs.getString(PREF_PASSWORD,null);
+        restoredUser = prefs.getString(PREF_USERNAME,null);
+        restoredPass = prefs.getString(PREF_PASSWORD,null);
         if(restoredUser != null || restoredPass != null){
             userExists = true;
         }
         else{
-            //setContentView(R.layout.activity_users);
-            //setContentView(R.layout.activity_login);
             userExists = false;
         }
     }
@@ -202,11 +158,7 @@ public class Login extends AppCompatActivity {
         editor.putString(PREF_USERNAME, u);
         editor.putString(PREF_PASSWORD, p);
         editor.apply();
+        userSaved = true;
 
     }
-
-
-
-
-
 }
