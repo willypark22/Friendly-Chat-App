@@ -1,6 +1,6 @@
 # Group 2 Android Chat App
 
-# Installing
+### Installing
 1. Git clone the repo
 
 2. Open the folder in android studio
@@ -11,6 +11,6 @@
 
 5. Open the app and register with a username and password 
 
-# Current Feautures
+### Current Feautures
 
 
