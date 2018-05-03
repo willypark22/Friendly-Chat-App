@@ -140,6 +140,8 @@ public class Login extends AppCompatActivity {
 
         RequestQueue rQueue = Volley.newRequestQueue(Login.this);
         rQueue.add(request);
+
+
     }
     public void getUser(){
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
