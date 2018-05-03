@@ -20,13 +20,13 @@
         android:layout_marginBottom="20dp"/>
 
     <EditText
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/username"
+        android:layout_marginBottom="10dp"
+        android:hint="Username"
         android:inputType="text"
-        android:maxLines="1"
-        android:hint="enter username"
-        android:layout_marginBottom="10dp"/>
+        android:maxLines="1" />
 
     <EditText
         android:layout_width="match_parent"
@@ -34,15 +34,17 @@
         android:id="@+id/password"
         android:inputType="textPassword"
         android:maxLines="1"
-        android:hint="enter password"
+        android:hint="Password"
         android:layout_marginBottom="10dp"/>
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Login"
         android:id="@+id/loginButton"
-        android:layout_marginBottom="20dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Go" />
+
+
 
     <TextView
         android:layout_width="match_parent"
@@ -51,5 +53,11 @@
         android:textSize="20dp"
         android:gravity="center"
         android:id="@+id/register"/>
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remember username and password" />
 
 </LinearLayout>
