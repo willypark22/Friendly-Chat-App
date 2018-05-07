@@ -20,7 +20,9 @@
 
         <activity android:name=".Register" />
         <activity android:name=".Users" />
+        <activity android:name=".CreateGroupChat" />
         <activity android:name=".Chat" />
+
     </application>
 
 </manifest>
