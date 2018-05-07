@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,6 +44,7 @@ public class Users extends AppCompatActivity {
 
         usersList = (ListView)findViewById(R.id.usersList);
         noUsersText = (TextView)findViewById(R.id.noUsersText);
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
 
         pd = new ProgressDialog(Users.this);
         pd.setMessage("Loading...");
@@ -69,6 +72,15 @@ public class Users extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 UserDetails.chatWith = al.get(position);
                 startActivity(new Intent(Users.this, Chat.class));
+            }
+        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "test", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                setContentView(R.layout.activity_create);
+
             }
         });
     }
@@ -106,9 +118,10 @@ public class Users extends AppCompatActivity {
 
         pd.dismiss();
     }
-    @Override
-    public void onBackPressed() {
+//    @Override
+//    public void onBackPressed() {
+//        setContentView(R.layout.activity_users);
+//    }
 
 
-    }
 }
