@@ -26,6 +26,7 @@ public class Chat extends AppCompatActivity {
     EditText messageArea;
     ScrollView scrollView;
     Firebase reference1, reference2;
+    String k;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,8 @@ public class Chat extends AppCompatActivity {
 
         reference1 = new Firebase("https://chat-1d9a1.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
         reference2 = new Firebase("https://chat-1d9a1.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
-
+        //k = reference1.child("messages").push().getKey();
+        //reference2.child("users").child(UserDetails.username).child(chats)
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
