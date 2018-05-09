@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,10 +33,12 @@ import java.util.Iterator;
 public class Users extends AppCompatActivity {
     ListView usersList;
     TextView noUsersText;
+    Button butt;
     ArrayList<String> al = new ArrayList<>();
     int totalUsers = 0;
     ProgressDialog pd;
     boolean exit = false;
+    String b = "butt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,10 @@ public class Users extends AppCompatActivity {
         usersList = (ListView)findViewById(R.id.usersList);
         noUsersText = (TextView)findViewById(R.id.noUsersText);
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        butt = findViewById(R.id.createButton);
+
+        //FloatingActionButton fab3 = findViewById(R.id.fab1);
+
 
         pd = new ProgressDialog(Users.this);
         pd.setMessage("Loading...");
@@ -77,12 +84,18 @@ public class Users extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "test", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                setContentView(R.layout.activity_create);
+//                Snackbar.make(view, "test", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                //Toast.makeText(Users.this, "created group", Toast.LENGTH_LONG).show();
+
+                //setContentView(R.layout.activity_create);
+
+                startActivity(new Intent(Users.this, CreateGroupChat.class));
+                //butt.setText(b);
 
             }
         });
+
     }
 
     public void doOnSuccess(String s){
