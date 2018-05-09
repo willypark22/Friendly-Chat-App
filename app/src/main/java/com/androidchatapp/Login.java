@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,6 +20,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+//import com.firebase.client.DataSnapshot;
+//mport com.firebase.client.ValueEventListener;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +44,8 @@ public class Login extends AppCompatActivity {
     private static final String PREF_PASSWORD = "password";
     private static boolean userExists = false;
     private static boolean userSaved = false;
+    DatabaseReference groupsDbRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +94,22 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+
+        //groupsDbRef = FirebaseDatabase.getInstance().getReference("users/" + UserDetails.username + "/groups");
+        groupsDbRef = FirebaseDatabase.getInstance().getReference("users/parth/groups");
+        groupsDbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("Firebase", "" + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
+
     @Override
     public void onStart(){
         super.onStart();
