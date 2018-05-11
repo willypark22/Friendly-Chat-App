@@ -1,5 +1,6 @@
 package com.androidchatapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.firebase.client.FirebaseError;
 
 import java.util.HashMap;
 import java.util.Map;
+import android.widget.Button;
 
 public class Chat extends AppCompatActivity {
     LinearLayout layout;
@@ -24,6 +26,7 @@ public class Chat extends AppCompatActivity {
     EditText messageArea;
     ScrollView scrollView;
     Firebase reference1, reference2;
+    private Button buttonProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +38,24 @@ public class Chat extends AppCompatActivity {
         messageArea = (EditText)findViewById(R.id.messageArea);
         scrollView = (ScrollView)findViewById(R.id.scrollView);
 
+        buttonProfile = (Button) findViewById(R.id.buttonProfile);
+
         Firebase.setAndroidContext(this);
 
         reference1 = new Firebase("https://chat-1d9a1.firebaseio.com/messages/" + UserDetails.username + "_" + UserDetails.chatWith);
         reference2 = new Firebase("https://chat-1d9a1.firebaseio.com/messages/" + UserDetails.chatWith + "_" + UserDetails.username);
+
+        buttonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v == buttonProfile)
+                {
+                    //Sends the user to their profile.
+                    startActivity(new Intent(Chat.this, UserDetails.class));
+                }
+
+            }
+        });
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,5 +125,10 @@ public class Chat extends AppCompatActivity {
 
         layout.addView(textView);
         scrollView.fullScroll(View.FOCUS_DOWN);
+    }
+
+    private void viewProfile()
+    {
+
     }
 }
