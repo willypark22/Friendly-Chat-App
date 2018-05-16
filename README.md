@@ -11,7 +11,7 @@
 - Create chats with 1 or more users
 - Send pictures in chats
 
-## Members
+### Members
 
 Parth Mangrola
 
@@ -30,6 +30,6 @@ Shruthi Ram
 Jhaymar Sabino
 
 
-## References
+### References
 
 https://www.udacity.com/course/firebase-in-a-weekend-by-google-android--ud0352
