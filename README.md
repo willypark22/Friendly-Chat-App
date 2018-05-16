@@ -1,14 +1,16 @@
-# FriendlyChat
+# Group 2 Android Chat App
 
-This repository contains code for the FriendlyChat project in the [Firebase in a Weekend: Android by Google](https://www.udacity.com/course/firebase-in-a-weekend-by-google-android--ud0352) Udacity course.
+### Installing
+1. Git clone the repo
 
-## Overview
+2. Open the folder in android studio
 
-FriendlyChat is an app that allows users to send and receive text and photos in realtime across platforms.
+3. Build and run the app with the green play button in the taskbar
 
-## Setup
+4. Choose a virtual device or connected device
 
-Setup requires creating a Firebase project. See https://firebase.google.com/ for more information.
+5. Open the app and register with a username and password 
 
-## License
-See [LICENSE](LICENSE)
+### Current Feautures
+
+
