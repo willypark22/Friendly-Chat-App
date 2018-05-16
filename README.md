@@ -12,6 +12,7 @@ ___
 
 - Create chats with 1 or more users
 - Send pictures in chats
+- User can logout 
 
 ___
 ### Members
@@ -24,7 +25,7 @@ Dong Park
 
 Jeevan Sandhu
 
-Jae Hyun Park
+Jay Hyun Park
 
 Ivan Liang
 
