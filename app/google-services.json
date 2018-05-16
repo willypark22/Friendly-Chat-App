@@ -1,35 +1,35 @@
 {
   "project_info": {
-    "project_number": "851775973846",
-    "firebase_url": "https://chat-1d9a1.firebaseio.com",
-    "project_id": "chat-1d9a1",
-    "storage_bucket": "chat-1d9a1.appspot.com"
+    "project_number": "871720703340",
+    "firebase_url": "https://friendlychat-c496d.firebaseio.com",
+    "project_id": "friendlychat-c496d",
+    "storage_bucket": "friendlychat-c496d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:851775973846:android:e7ccd20ee7844ed1",
+        "mobilesdk_app_id": "1:871720703340:android:64e58dacc0483faa",
         "android_client_info": {
-          "package_name": "com.androidchatapp"
+          "package_name": "com.google.firebase.udacity.friendlychat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "851775973846-g2260vsbfcgeuidkimr2smb1d7p9e83t.apps.googleusercontent.com",
+          "client_id": "871720703340-qh7hdhmr21rr11r6epa8b7sr5ubopuqo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.androidchatapp",
+            "package_name": "com.google.firebase.udacity.friendlychat",
             "certificate_hash": "2186f35c6431bdc6df8be0d90601a8045dc68225"
           }
         },
         {
-          "client_id": "851775973846-rrl95aqur8ilm3jn0c987u0ph3rrin8o.apps.googleusercontent.com",
+          "client_id": "871720703340-g4qmk5vi3sue8a3kibhjsaoe97enial0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA8n7Jg5UFWkZsJCgrm8UlVZ26iXq46PRg"
+          "current_key": "AIzaSyBZetecnHge23G3untA6tMySBcGiTsHg1s"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "851775973846-rrl95aqur8ilm3jn0c987u0ph3rrin8o.apps.googleusercontent.com",
+              "client_id": "871720703340-g4qmk5vi3sue8a3kibhjsaoe97enial0.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
