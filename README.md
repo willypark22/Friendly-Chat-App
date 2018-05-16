@@ -14,12 +14,19 @@
 ## Members
 
 Parth Mangrola
+
 Annie Chin
+
 Dong Park
+
 Jeevan Sandhu
+
 Jae Hyun Park
+
 Ivan Liang
+
 Shruthi Ram
+
 Jhaymar Sabino
 
 
