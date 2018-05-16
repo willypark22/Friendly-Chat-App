@@ -6,8 +6,23 @@
 2. Sign up with email or Google sign in
 
 
-### Current Feautures
+### Current Features
 
 - Create chats with 1 or more users
 - Send pictures in chats
 
+## Members
+
+Parth Mangrola
+Annie Chin
+Dong Park
+Jeevan Sandhu
+Jae Hyun Park
+Ivan Liang
+Shruthi Ram
+Jhaymar Sabino
+
+
+## References
+
+https://www.udacity.com/course/firebase-in-a-weekend-by-google-android--ud0352
