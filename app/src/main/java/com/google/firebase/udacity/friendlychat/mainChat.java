@@ -117,11 +117,9 @@ public class mainChat extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() > 0) {
-//                    mTypingIndicator.setVisibility(View.VISIBLE);
                     mIDR.setValue("true");
                     mSendButton.setEnabled(true);
                 } else {
-//                    mTypingIndicator.setVisibility(View.INVISIBLE);
                     mIDR.setValue(val);
                     mSendButton.setEnabled(false);
                 }
@@ -150,23 +148,7 @@ public class mainChat extends AppCompatActivity {
         });
         Log.e("log","ddd");
     }
-//        @Override
-//        public boolean onCreateOptionsMenu(Menu menu) {
-//            MenuInflater inflater = getMenuInflater();
-//            inflater.inflate(R.menu.main_menu, menu);
-//            return true;
-//        }
-//
-//        @Override
-//        public boolean onOptionsItemSelected(MenuItem item) {
-//            switch (item.getItemId()) {
-//                case R.id.sign_out_menu:
-//                    AuthUI.getInstance().signOut(this);
-//                    return true;
-//                default:
-//                    return super.onOptionsItemSelected(item);
-//            }
-//        }
+
 @Override
 public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
@@ -203,6 +185,7 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
         @Override
         protected void onPause(){
             super.onPause();
+            mIDR.setValue(val);
 
         }
         @Override
