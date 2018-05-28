@@ -107,13 +107,16 @@ public class mainChat extends AppCompatActivity {
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() > 0) {
+                    mTypingIndicator.setVisibility(View.VISIBLE);
                     mSendButton.setEnabled(true);
                 } else {
+                    mTypingIndicator.setVisibility(View.INVISIBLE);
                     mSendButton.setEnabled(false);
                 }
             }
@@ -134,6 +137,7 @@ public class mainChat extends AppCompatActivity {
                 mMessagesDatabaseReference.push().setValue(friendlyMessage);
 
                 // Clear input box
+                mTypingIndicator.setVisibility(View.INVISIBLE);
                 mMessageEditText.setText("");
             }
         });
