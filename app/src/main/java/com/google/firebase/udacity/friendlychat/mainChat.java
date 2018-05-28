@@ -52,14 +52,15 @@ public class mainChat extends AppCompatActivity {
     private EditText mMessageEditText;
     private Button mSendButton;
     private ImageView mTypingIndicator;
-    private String mUsername, iD;
+    private String mUsername, val, isTyping;
+
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mChatPhotosStorageReference;
 
-    private DatabaseReference mMessagesDatabaseReference, mIDR;
-    private ChildEventListener mChildEventListener;
+    private DatabaseReference mMessagesDatabaseReference, mIDR, mIDR2;
+    private ChildEventListener mChildEventListener, mChildEventListener2;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -68,10 +69,13 @@ public class mainChat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.e("log","aaa");
+        val = "false";
         mUsername = Main.USER;
         mFirebaseStorage = FirebaseStorage.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
+        mIDR = mFirebaseDatabase.getReference().child("chats").child(MainLoggedIn.chatKey).child("typing");
+        mIDR2 = mFirebaseDatabase.getReference().child("chats").child(MainLoggedIn.chatKey);
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("messages").child(MainLoggedIn.chatKey);
         mChatPhotosStorageReference = mFirebaseStorage.getReference().child("photos");
 
@@ -86,7 +90,7 @@ public class mainChat extends AppCompatActivity {
         List<FriendlyMessage> friendlyMessages = new ArrayList<>();
         mMessageAdapter = new MessageAdapter(this, R.layout.item_message, friendlyMessages);
         mMessageListView.setAdapter(mMessageAdapter);
-
+        mIDR.setValue(val);
         // Initialize progress bar
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
         mTypingIndicator.setVisibility(View.INVISIBLE);
@@ -113,10 +117,12 @@ public class mainChat extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() > 0) {
-                    mTypingIndicator.setVisibility(View.VISIBLE);
+//                    mTypingIndicator.setVisibility(View.VISIBLE);
+                    mIDR.setValue("true");
                     mSendButton.setEnabled(true);
                 } else {
-                    mTypingIndicator.setVisibility(View.INVISIBLE);
+//                    mTypingIndicator.setVisibility(View.INVISIBLE);
+                    mIDR.setValue(val);
                     mSendButton.setEnabled(false);
                 }
             }
@@ -138,6 +144,7 @@ public class mainChat extends AppCompatActivity {
 
                 // Clear input box
                 mTypingIndicator.setVisibility(View.INVISIBLE);
+                mIDR.setValue(val);
                 mMessageEditText.setText("");
             }
         });
@@ -232,11 +239,47 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 };
                 mMessagesDatabaseReference.addChildEventListener(mChildEventListener);
             }
+            if (mChildEventListener2 == null) {
+                mChildEventListener2 = new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        isTyping = dataSnapshot.getValue().toString();
+                        Log.e("type",isTyping);
+                        if(isTyping.equals("true")){
+                            mTypingIndicator.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            mTypingIndicator.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                };
+                mIDR2.addChildEventListener(mChildEventListener2);
+            }
         }
         private void detachDatabaseReadListener(){
             if (mChildEventListener != null){
                 mMessagesDatabaseReference.removeEventListener(mChildEventListener);
                 mChildEventListener = null;
+            }
+            if (mChildEventListener2 != null){
+                mIDR2.removeEventListener(mChildEventListener2);
+                mChildEventListener2 = null;
             }
 
         }
