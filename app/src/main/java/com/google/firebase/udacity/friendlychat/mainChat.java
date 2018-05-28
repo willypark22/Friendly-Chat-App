@@ -66,7 +66,7 @@ public class mainChat extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e("poop","aaa");
+        Log.e("log","aaa");
         mUsername = Main.USER;
         mFirebaseStorage = FirebaseStorage.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -102,7 +102,7 @@ public class mainChat extends AppCompatActivity {
         });
         attachDatabaseReadListener();
         // Enable Send button when there's text to send
-        Log.e("poop","bbb");
+        Log.e("log","bbb");
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -122,7 +122,7 @@ public class mainChat extends AppCompatActivity {
             }
         });
         mMessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)});
-        Log.e("poop","ccc");
+        Log.e("log","ccc");
         // Send button sends a message and clears the EditText
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,7 +136,7 @@ public class mainChat extends AppCompatActivity {
                 mMessageEditText.setText("");
             }
         });
-        Log.e("poop","ddd");
+        Log.e("log","ddd");
     }
 //        @Override
 //        public boolean onCreateOptionsMenu(Menu menu) {
@@ -199,14 +199,14 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
         }
 
         private void attachDatabaseReadListener() {
-            Log.e("poop","eee");
+            Log.e("log","eee");
             if (mChildEventListener == null) {
                 mChildEventListener = new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         FriendlyMessage friendlyMessage = dataSnapshot.getValue(FriendlyMessage.class);
                         mMessageAdapter.add(friendlyMessage);
-                        Log.e("poop","fff");
+                        Log.e("log","fff");
                     }
 
                     @Override
