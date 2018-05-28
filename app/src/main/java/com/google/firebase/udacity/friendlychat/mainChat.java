@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -50,15 +51,16 @@ public class mainChat extends AppCompatActivity {
     private ImageButton mPhotoPickerButton;
     private EditText mMessageEditText;
     private Button mSendButton;
+    private ImageView mTypingIndicator;
+    private String mUsername, val, isTyping;
 
-    private String mUsername, iD;
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mChatPhotosStorageReference;
 
-    private DatabaseReference mMessagesDatabaseReference, mIDR;
-    private ChildEventListener mChildEventListener;
+    private DatabaseReference mMessagesDatabaseReference, mIDR, mIDR2;
+    private ChildEventListener mChildEventListener, mChildEventListener2;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -67,10 +69,13 @@ public class mainChat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.e("log","aaa");
+        val = "false";
         mUsername = Main.USER;
         mFirebaseStorage = FirebaseStorage.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
+        mIDR = mFirebaseDatabase.getReference().child("chats").child(MainLoggedIn.chatKey).child("typing");
+        mIDR2 = mFirebaseDatabase.getReference().child("chats").child(MainLoggedIn.chatKey);
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("messages").child(MainLoggedIn.chatKey);
         mChatPhotosStorageReference = mFirebaseStorage.getReference().child("photos");
 
@@ -80,15 +85,15 @@ public class mainChat extends AppCompatActivity {
         mPhotoPickerButton = (ImageButton) findViewById(R.id.photoPickerButton);
         mMessageEditText = (EditText) findViewById(R.id.messageEditText);
         mSendButton = (Button) findViewById(R.id.sendButton);
-
+        mTypingIndicator = findViewById(R.id.typingIndicator);
         // Initialize message ListView and its adapter
         List<FriendlyMessage> friendlyMessages = new ArrayList<>();
         mMessageAdapter = new MessageAdapter(this, R.layout.item_message, friendlyMessages);
         mMessageListView.setAdapter(mMessageAdapter);
-
+        mIDR.setValue(val);
         // Initialize progress bar
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
-
+        mTypingIndicator.setVisibility(View.INVISIBLE);
         // ImagePickerButton shows an image picker to upload a image for a message
         mPhotoPickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,13 +111,16 @@ public class mainChat extends AppCompatActivity {
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length() > 0) {
+                    mIDR.setValue("true");
                     mSendButton.setEnabled(true);
                 } else {
+                    mIDR.setValue(val);
                     mSendButton.setEnabled(false);
                 }
             }
@@ -133,28 +141,14 @@ public class mainChat extends AppCompatActivity {
                 mMessagesDatabaseReference.push().setValue(friendlyMessage);
 
                 // Clear input box
+                mTypingIndicator.setVisibility(View.INVISIBLE);
+                mIDR.setValue(val);
                 mMessageEditText.setText("");
             }
         });
         Log.e("log","ddd");
     }
-//        @Override
-//        public boolean onCreateOptionsMenu(Menu menu) {
-//            MenuInflater inflater = getMenuInflater();
-//            inflater.inflate(R.menu.main_menu, menu);
-//            return true;
-//        }
-//
-//        @Override
-//        public boolean onOptionsItemSelected(MenuItem item) {
-//            switch (item.getItemId()) {
-//                case R.id.sign_out_menu:
-//                    AuthUI.getInstance().signOut(this);
-//                    return true;
-//                default:
-//                    return super.onOptionsItemSelected(item);
-//            }
-//        }
+
 @Override
 public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
@@ -191,6 +185,7 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
         @Override
         protected void onPause(){
             super.onPause();
+            mIDR.setValue(val);
 
         }
         @Override
@@ -227,11 +222,47 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 };
                 mMessagesDatabaseReference.addChildEventListener(mChildEventListener);
             }
+            if (mChildEventListener2 == null) {
+                mChildEventListener2 = new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        isTyping = dataSnapshot.getValue().toString();
+                        Log.e("type",isTyping);
+                        if(isTyping.equals("true")){
+                            mTypingIndicator.setVisibility(View.VISIBLE);
+                        }
+                        else{
+                            mTypingIndicator.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                };
+                mIDR2.addChildEventListener(mChildEventListener2);
+            }
         }
         private void detachDatabaseReadListener(){
             if (mChildEventListener != null){
                 mMessagesDatabaseReference.removeEventListener(mChildEventListener);
                 mChildEventListener = null;
+            }
+            if (mChildEventListener2 != null){
+                mIDR2.removeEventListener(mChildEventListener2);
+                mChildEventListener2 = null;
             }
 
         }
