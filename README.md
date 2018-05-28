@@ -2,7 +2,7 @@
 ___
 
 ### Installing
-1. [Download](https://drive.google.com/file/d/1Cj6M6UZWDKxJTKjrVH59tB2fTWXKP8du/view?usp=sharing) and install the app
+1. [Download](https://drive.google.com/file/d/111-Tnb10_5BYy1G-KQKMhfejZcI6DXDk/view?usp=sharing) and install the app
 
 2. Sign up with email or Google sign in
 
