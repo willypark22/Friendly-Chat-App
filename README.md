@@ -2,7 +2,7 @@
 ___
 
 ### Installing
-1. [Download](https://drive.google.com/file/d/1dRjPTvV_7m4STl03PSf2x2L_f8L7Kt1X/view?usp=sharing) and install the app
+1. [Download](https://drive.google.com/file/d/1Cj6M6UZWDKxJTKjrVH59tB2fTWXKP8du/view?usp=sharing) and install the app
 
 2. Sign up with email or Google sign in
 
@@ -12,7 +12,8 @@ ___
 
 - Create chats with 1 or more users
 - Send pictures in chats
-- User can logout 
+- User can logout
+- Typing indicator when users in a chat are typing
 
 ___
 ### Members
