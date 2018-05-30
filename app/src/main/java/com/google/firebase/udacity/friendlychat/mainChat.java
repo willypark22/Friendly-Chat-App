@@ -1,5 +1,6 @@
 package com.google.firebase.udacity.friendlychat;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,8 +19,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,13 +57,14 @@ public class mainChat extends AppCompatActivity {
     private Button mSendButton;
     private ImageView mTypingIndicator;
     private String mUsername, val, isTyping;
+    private TextView mChat;
 
 
     private FirebaseDatabase mFirebaseDatabase;
     private FirebaseStorage mFirebaseStorage;
     private StorageReference mChatPhotosStorageReference;
 
-    private DatabaseReference mMessagesDatabaseReference, mIDR, mIDR2;
+    private DatabaseReference mMessagesDatabaseReference, mIDR, mIDR2, mIDR3;
     private ChildEventListener mChildEventListener, mChildEventListener2;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -76,6 +81,7 @@ public class mainChat extends AppCompatActivity {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mIDR = mFirebaseDatabase.getReference().child("chats").child(MainLoggedIn.chatKey).child("typing");
         mIDR2 = mFirebaseDatabase.getReference().child("chats").child(MainLoggedIn.chatKey);
+        mIDR3 = mFirebaseDatabase.getReference().child("chats").child(MainLoggedIn.chatKey).child("name");
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("messages").child(MainLoggedIn.chatKey);
         mChatPhotosStorageReference = mFirebaseStorage.getReference().child("photos");
 
@@ -86,6 +92,7 @@ public class mainChat extends AppCompatActivity {
         mMessageEditText = (EditText) findViewById(R.id.messageEditText);
         mSendButton = (Button) findViewById(R.id.sendButton);
         mTypingIndicator = findViewById(R.id.typingIndicator);
+        mChat = findViewById(R.id.chatNameD);
         // Initialize message ListView and its adapter
         List<FriendlyMessage> friendlyMessages = new ArrayList<>();
         mMessageAdapter = new MessageAdapter(this, R.layout.item_message, friendlyMessages);
@@ -105,9 +112,31 @@ public class mainChat extends AppCompatActivity {
 
             }
         });
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference().child("chats").child(MainLoggedIn.chatKey).child("name");
+
+
+        myRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String mChatName = dataSnapshot.getValue().toString();
+                Log.e("nameLog",mChatName);
+                mChat.setText(mChatName);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         attachDatabaseReadListener();
         // Enable Send button when there's text to send
         Log.e("log","bbb");
+
         mMessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -255,6 +284,12 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 mIDR2.addChildEventListener(mChildEventListener2);
             }
         }
+
+
+
+
+
+
         private void detachDatabaseReadListener(){
             if (mChildEventListener != null){
                 mMessagesDatabaseReference.removeEventListener(mChildEventListener);
