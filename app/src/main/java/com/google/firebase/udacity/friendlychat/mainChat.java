@@ -57,7 +57,7 @@ public class mainChat extends AppCompatActivity {
     private Button mSendButton;
     private ImageView mTypingIndicator;
     private String mUsername, val, isTyping;
-    private TextView mChat;
+    private TextView mChat, mChatDescription;
 
 
     private FirebaseDatabase mFirebaseDatabase;
@@ -93,6 +93,7 @@ public class mainChat extends AppCompatActivity {
         mSendButton = (Button) findViewById(R.id.sendButton);
         mTypingIndicator = findViewById(R.id.typingIndicator);
         mChat = findViewById(R.id.chatNameD);
+        mChatDescription = findViewById(R.id.chatNameDescription);
         // Initialize message ListView and its adapter
         List<FriendlyMessage> friendlyMessages = new ArrayList<>();
         mMessageAdapter = new MessageAdapter(this, R.layout.item_message, friendlyMessages);
@@ -116,7 +117,6 @@ public class mainChat extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("chats").child(MainLoggedIn.chatKey).child("name");
 
-
         myRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -125,7 +125,27 @@ public class mainChat extends AppCompatActivity {
                 mChat.setText(mChatName);
 
             }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        DatabaseReference myRef2 = database.getReference().child("chats").child(MainLoggedIn.chatKey).child("description");
+
+        myRef2.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String mDescription = dataSnapshot.getValue().toString();
+                Log.e("nameLog",mDescription);
+                if(!mDescription.isEmpty()){
+                    mChatDescription.setText(mDescription);
+                }
+                else{
+                    mChatDescription.setText("");
+                }
+
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

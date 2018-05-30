@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-
+    android:layout_below="@id/layOut2"
     tools:context="com.google.firebase.udacity.friendlychat.listUsers"
     android:orientation="vertical">
 
@@ -19,6 +19,7 @@
         android:text="Create Chat" />
 
     <LinearLayout
+        android:id="@+id/layOut"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -50,14 +51,48 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/layOut2"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/layOut"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/chat_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:ems="10"
+            android:hint="Enter group description (optional)"
+            android:inputType="textPersonName"
+            android:paddingEnd="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingStart="16dp" />
+
+        <ImageButton
+            android:id="@+id/setDescription"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="15dp"
+            android:background="@android:drawable/ic_menu_send"
+            android:backgroundTint="?attr/colorAccent" />
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginBottom="80dp"
-        android:layout_marginTop="97dp"
+        android:layout_marginTop="129dp"
         tools:listitem="@layout/list_user">
 
     </ListView>

@@ -31,14 +31,14 @@ public class listUsers extends AppCompatActivity {
     public FirebaseListAdapter<User> adapter;
     private boolean nameExists;
     private String addition = " (You)";
-    private String setText, k, key, chatName;
+    private String setText, k, key, chatName, chatDescription;
     private ListView readMessageList, mUsers;
     private DatabaseReference mRef;
     TextView text;
-    EditText cName;
-    ImageButton mSet;
+    EditText cName, mDescription;
+    ImageButton mSet, mSetDescription;
     Button mCreate;
-
+    Boolean descriptionExists = false;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +49,8 @@ public class listUsers extends AppCompatActivity {
         mUsers = findViewById(R.id.listView);
         cName = findViewById(R.id.chat_name);
         mCreate = findViewById(R.id.createChatButton);
+        mDescription = findViewById(R.id.chat_description);
+        mSetDescription = findViewById(R.id.setDescription);
         chatName = cName.getText().toString();
         Query query = FirebaseDatabase.getInstance()
                 .getReference()
@@ -81,7 +83,7 @@ public class listUsers extends AppCompatActivity {
 
         readMessageList = findViewById(R.id.listView);
         readMessageList.setAdapter(adapter);
-
+        Log.e("test","44");
         mSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +111,28 @@ public class listUsers extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        Log.e("test","22");
+        mDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chatDescription = mDescription.getText().toString();
+            }
+        });
+        mSetDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                chatDescription = mDescription.getText().toString();
+                if(chatDescription.isEmpty()){
+                    Toast.makeText(listUsers.this, "Set a description first", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    descriptionExists = true;
+                    Toast.makeText(listUsers.this, "Description set", Toast.LENGTH_LONG).show();
+                    mDescription.getText().clear();
+                }
+            }
+        });
+        Log.e("test","33");
 
         mUsers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -119,7 +143,7 @@ public class listUsers extends AppCompatActivity {
 
                 }
                 else {
-
+                    Log.e("test","11");
                     View v;
                     text = view.findViewById(R.id.nameText);
                     key = adapter.getRef(position).getKey();
@@ -133,6 +157,12 @@ public class listUsers extends AppCompatActivity {
 
                         mRef.child("chats").child(k).setValue(k);
                         mRef.child("chats").child(k).child("name").setValue(chatName);
+                        if(descriptionExists){
+                            mRef.child("chats").child(k).child("description").setValue(chatDescription);
+                        }
+                        else {
+                            mRef.child("chats").child(k).child("description").setValue("");
+                        }
                         mRef.child("users").child(Main.ID).child("chats").child(k).child("name").setValue(chatName);
                         mRef.child("users").child(key).child("chats").child(k).child("name").setValue(chatName);
                         mCID = k;
@@ -143,6 +173,8 @@ public class listUsers extends AppCompatActivity {
                 }
             }
         });
+
+
 
     }
 
