@@ -18,26 +18,42 @@
 
         android:theme="?attr/actionBarTheme">
 
+        <View
+            android:id="@+id/colored_bar"
+            android:layout_width="3dp"
+            android:layout_height="30dp"
+            android:background="?attr/colorAccent" />
+
         <TextView
             android:id="@+id/chatNameD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
             android:background="@android:color/transparent"
             android:fontFamily="@font/roboto_thin"
+            android:paddingLeft="2dp"
             android:text="TextView"
             android:textColor="@android:color/background_light" />
+
 
         <TextView
             android:id="@+id/chatNameDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="0"
             android:background="@android:color/transparent"
             android:fontFamily="@font/roboto_thin"
             android:paddingLeft="2dp"
+            android:paddingTop="1dp"
             android:text="TextView"
             android:textColor="?android:attr/textColorHintInverse" />
 
+
+
     </android.support.v7.widget.Toolbar>
+
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
