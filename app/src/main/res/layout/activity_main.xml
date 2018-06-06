@@ -42,11 +42,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/roboto_thin"
+            android:fontFamily="@font/roboto"
             android:paddingLeft="2dp"
             android:paddingTop="1dp"
             android:text="TextView"
-            android:textColor="?android:attr/textColorHintInverse" />
+            android:textColor="?attr/colorAccent" />
 
 
 
