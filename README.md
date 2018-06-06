@@ -2,7 +2,7 @@
 ___
 
 ### Installing
-1. [Download](https://drive.google.com/file/d/111-Tnb10_5BYy1G-KQKMhfejZcI6DXDk/view?usp=sharing) and install the app
+1. [Download](https://drive.google.com/file/d/1uk91mRcdRdsM_3pzNq_mRrhEHD5i90XV/view?usp=sharing) and install the app
 
 2. Sign up with email or Google sign in
 
@@ -11,9 +11,12 @@ ___
 ### Current Features
 
 - Create chats with 1 or more users
+- Sign up with email or Google account
+- Firebase authentication
 - Send pictures in chats
 - User can logout
 - Typing indicator when users in a chat are typing
+- Set a chat name and a description
 
 ___
 ### Members
