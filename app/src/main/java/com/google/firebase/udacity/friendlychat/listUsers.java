@@ -123,11 +123,11 @@ public class listUsers extends AppCompatActivity {
             public void onClick(View v){
                 chatDescription = mDescription.getText().toString();
                 if(chatDescription.isEmpty()){
-                    Toast.makeText(listUsers.this, "Set a description first", Toast.LENGTH_LONG).show();
+                    Toast.makeText(listUsers.this, "Set a description first", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     descriptionExists = true;
-                    Toast.makeText(listUsers.this, "Description set", Toast.LENGTH_LONG).show();
+                    Toast.makeText(listUsers.this, "Description set", Toast.LENGTH_SHORT).show();
                     mDescription.getText().clear();
                 }
             }
@@ -151,7 +151,7 @@ public class listUsers extends AppCompatActivity {
                         v = parent.getChildAt(position);
                         v.setVisibility(View.GONE);
 
-                        Toast.makeText(listUsers.this, "User Added", Toast.LENGTH_LONG).show();
+                        Toast.makeText(listUsers.this, "User Added", Toast.LENGTH_SHORT).show();
 
                         mRef = FirebaseDatabase.getInstance().getReference();
 
@@ -168,7 +168,7 @@ public class listUsers extends AppCompatActivity {
                         mCID = k;
 
                     } else {
-                        Toast.makeText(listUsers.this, "It's you!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(listUsers.this, "It's you!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
